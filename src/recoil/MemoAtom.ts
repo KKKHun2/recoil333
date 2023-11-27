@@ -16,3 +16,12 @@ export const MemoAtom = atom<MemoItem[]> ({
     default: [],
   });
   
+  export const ClearAtom = atom<MemoItem[]> ({
+    key: "ClearAtom",
+    default: [],
+  });
+
+  export const DeleteAtom = atom<MemoItem[]> ({
+    key: "DeleteAtom",
+    default: [],
+  });
