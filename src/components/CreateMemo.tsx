@@ -60,20 +60,23 @@ function CreateMemo() {
         text: Mtext
       }
     ]);
-    setValue("Mtitle", "Mtext");
+    setValue("Mtitle", "");
+setValue("Mtext", ""); 
   };
   return (
     <TodoForm onSubmit={handleSubmit(handleValid)}>
       <TodoBody>
       <Input
           {...register("Mtitle", {
-            required: "메모 제목"
+            required: true,
+            maxLength: 5,
           })}
           placeholder="메모 제목"
         />
         <Input
           {...register("Mtext", {
-            required: "메모내용!"
+            required: true, // 필수 입력 필드로 설정
+            maxLength: 15, // 최대 길이를 50으로 제한
           })}
           placeholder="메모내용"
         />

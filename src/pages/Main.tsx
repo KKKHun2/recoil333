@@ -1,10 +1,13 @@
 import React from 'react'
 import CreateMemo from '../components/CreateMemo'
+import Box from '../components/Box'
+
 const Main = () => {
   return (
     <>
-    <div>Main</div>
+    <div>Mainffafaf</div>
     <CreateMemo />
+    <Box />
     </>
   )
 }
