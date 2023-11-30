@@ -3,7 +3,7 @@ import { atom, selector,RecoilValue } from "recoil";
 export{}
 declare global{
   interface MemoItem{
-    memoN:number;
+    memoN:string;
     id?:number;
     title?: string;
     text?: string;
