@@ -5,7 +5,6 @@ import Box from '../components/Box'
 const Main = () => {
   return (
     <>
-    <div>Mainffafaf</div>
     <CreateMemo />
     <Box />
     </>

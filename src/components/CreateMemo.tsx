@@ -7,40 +7,41 @@ import { nanoid } from 'nanoid';
 const TodoForm = styled.form`
   display: flex;
   flex-direction: column;
-  margin-bottom: 10px;
-  width: auto;
+  align-items: center;
+  margin-bottom: 20px;
 `;
 
 const TodoBody = styled.div`
   display: flex;
+  flex-direction: column;
   margin: 10px;
 `;
 
-const Todospan = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: 70px;
-  font-size: 17px;
-  color: red;
-`;
-
 const Input = styled.input`
-  :focus {
-    border: solid 3px #e84118;
-  }
-  border-radius: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 8px;
+  margin-bottom: 10px;
+  width: 300px;
 `;
 
 const Button = styled.button`
-  margin-left: 3px;
+  padding: 8px 15px;
   background-color: #718093;
-  width: 60px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+`;
+
+const ErrorText = styled.span`
+  font-size: 14px;
+  color: red;
 `;
 
 interface IForm {
   Mtitle: string;
-  Mtext:string
+  Mtext: string;
 }
 
 function CreateMemo() {
@@ -51,41 +52,41 @@ function CreateMemo() {
     setValue,
     formState: { errors }
   } = useForm<IForm>();
-  const handleValid = ({ Mtitle,Mtext }: IForm) => {
+  
+  const handleValid = ({ Mtitle, Mtext }: IForm) => {
     setToDos((oldMemo) => [
       ...oldMemo,
       {
-        memoN: nanoid(), // 타입 변경으로 인해 문자열로 생성됨
+        memoN: nanoid(),
         title: Mtitle,
         text: Mtext
       }
     ]);
     setValue("Mtitle", "");
-setValue("Mtext", ""); 
+    setValue("Mtext", ""); 
   };
+
   return (
     <TodoForm onSubmit={handleSubmit(handleValid)}>
       <TodoBody>
-      <Input
+        <Input
           {...register("Mtitle", {
             required: true,
-            maxLength: 5,
+            minLength: 5,
           })}
           placeholder="메모 제목"
         />
+        {errors.Mtitle && <ErrorText>제목을 5자 이상 입력하세요.</ErrorText>}
         <Input
           {...register("Mtext", {
-            required: true, // 필수 입력 필드로 설정
-            maxLength: 15, // 최대 길이를 50으로 제한
+            required: true,
+            minLength: 10,
           })}
-          placeholder="메모내용"
+          placeholder="메모 내용"
         />
+        {errors.Mtext && <ErrorText>내용을 10자 이상 입력하세요.</ErrorText>}
         <Button type="submit">저장!</Button>
       </TodoBody>
-      <Todospan>
-        <hr />
-        <span>{errors?.Mtext?.message}</span>
-      </Todospan>
     </TodoForm>
   );
 }
